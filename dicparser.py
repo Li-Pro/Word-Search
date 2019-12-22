@@ -13,4 +13,4 @@ def OEDParser(soup, bWithExample):
 	if len(defs) == 0: rep = 'Word not recognized by dictionary.\n'
 	return rep
 
-def URBParser(soup, bWithExample): return ''
+def URBParser(soup, bWithExample): return str(soup)
