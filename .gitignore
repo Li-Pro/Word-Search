@@ -1,0 +1,5 @@
+# Ignore venv files
+venv/
+
+# Ignore build files
+build.bat
