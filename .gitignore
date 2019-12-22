@@ -3,3 +3,4 @@ venv/
 
 # Ignore build files
 build.bat
+__pycache__/
