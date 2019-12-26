@@ -1,4 +1,5 @@
 import sys
+import string
 import requests
 from bs4 import BeautifulSoup
 
@@ -15,7 +16,6 @@ def searchWord(key, dicprf, bWithExample):
 	rep = getPage('https://' + ((sPrf[dicprf][0]) % (key)))
 	return sPrf[dicprf][1](BeautifulSoup(rep, 'lxml'), bWithExample)
 
-# TODO: include sentences
 def main():
 	print("----- Word Search Panel -----\n")
 	while True:
@@ -28,14 +28,18 @@ def main():
 		#print('#'+line+'#')
 		
 		seq = line.split(' ')
-		word, dic, bWithExample = seq[0], 'oed', False
+		word, dic, bWithExample, wlim = seq[0], 'oed', False, 90
 		for sOpt in seq[1:]:
-			if len(sOpt)<=0 or sOpt[0]!='-': continue
+			if len(sOpt)<=2 or sOpt[0]!='-': continue
 			
 			opt = sOpt[1:]
 			if opt in sPrf: dic = opt
 			elif opt=='eg': bWithExample = True
+			elif opt[0]=='w':
+				if all((x in string.digits) for x in opt[1:]):
+					wlim = int(opt[1:])
 		
-		print(searchWord(word, dic, bWithExample), end=('' if bWithExample else '\n'))
+		defs = searchWord(word, dic, bWithExample)
+		print(dicparser.Format.setLineWidth(defs, wlim), end='')
 
 if __name__=="__main__": main()

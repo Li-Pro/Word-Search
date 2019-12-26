@@ -1,7 +1,7 @@
 # Word-Search
 A simple word searcher (from Oxford Dictionary &amp; Urban Dictionary)
 
-## Version: alpha 1.0 - build003
+## Version: alpha 1.0 - build004
 - OED & Urban is both available now!
 - Options are available (-oed, -urb, -eg)
 

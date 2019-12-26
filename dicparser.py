@@ -8,9 +8,29 @@ class Format:
 		sum = ''
 		for x in s:
 			if not x in Format.VIEWABLES:
-				if x == '\r': x = '\n'
+				if x == '\r': x = ' '
 				else: x = ' '
 			sum += x
+		return sum
+	
+	def setLineWidth(s, wlim):
+		sum = ''
+		for ox in s.split('\n'):
+			cnt = 0
+			for x in ox.split(' '):
+				if len(x)<=0:
+					continue
+				
+				if cnt+len(x) >= wlim:
+					sum += '\n'
+					cnt = 0
+				
+				sum += x+' '
+				cnt += len(x)+1
+				# sum += ('(%d)' % cnt)
+			
+			sum += '\n'
+		
 		return sum
 
 def OEDParser(soup, bWithExample):
@@ -18,12 +38,17 @@ def OEDParser(soup, bWithExample):
 	defs = soup.find_all(class_='sn-g')
 	rep = ''
 	for i in range(len(defs)):
-		rep += str(str(i+1)+'. ' + defs[i].find('span', class_='def').get_text()+'\n')
+		# if not len(defs[i].find_all('span', class_='def')): continue
+		rep += str(i+1)+'. '
+		for txt in defs[i].find_all('span', class_=['def', 'label-g', 'ndv', 'xr-g'], recursive=False):
+			rep += Format.strViewable(txt.get_text())+' '
+		rep += '\n'
+		
 		if bWithExample:
 			for exm in defs[i].find_all('span', class_='x'):
 				exmtxt = Format.strViewable(exm.get_text())
 				if len(exmtxt)>0: rep += ' - ' + exmtxt + '\n'
-			rep += '\n'
+		rep += '\n'
 	if len(defs) == 0: rep = 'Word not recognized by dictionary.\n'
 	return rep
 
@@ -31,7 +56,10 @@ def URBParser(soup, bWithExample):
 	defs = soup.find_all('div', 'def-panel')
 	rep = '\n'
 	for i in range(len(defs)):
-		x = Format.strViewable(defs[i].find('div', class_='meaning').get_text())
+		txt = defs[i].find('div', class_='meaning')
+		for dlm in txt.find_all('br'): dlm.replace_with('\n')
+		
+		x = Format.strViewable(txt.get_text())
 		rep += str(i+1)+'\n---\n' + x.replace('\n', ' \n') +'\n\n'
 		
 		if bWithExample:
