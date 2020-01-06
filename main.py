@@ -6,10 +6,8 @@ An example interactive program that searches for words.
 
 import sys
 import string
-import requests
-from bs4 import BeautifulSoup
 
-import dicparser  # The main library 
+import dicparser  # The main library
 
 class Format:
 	VIEWABLES = string.digits + string.ascii_letters + string.punctuation + ' \n'
@@ -46,6 +44,7 @@ class Format:
 		return sum
 	
 	def formatted(result, bWithExample, wlim):
+		""" An format example. """
 		if not len(result.defs):
 			return 'Word not found.\n'
 		
@@ -62,44 +61,7 @@ class Format:
 			
 			rep += '\n'
 		
-		return rep
-
-# def OEDParser(soup, bWithExample):
-	# defs = soup.find_all(class_='sn-g')
-	# rep = ''
-	# for i in range(len(defs)):
-		# rep += str(i+1)+'. '
-		# for txt in defs[i].find_all('span', class_=['def', 'label-g', 'ndv', 'xr-g'], recursive=False):
-			# rep += Format.strViewable(txt.get_text())+' '
-		# rep += '\n'
-		
-		# if bWithExample:
-			# for exm in defs[i].find_all('span', class_='x'):
-				# exmtxt = Format.strViewable(exm.get_text())
-				# if len(exmtxt)>0: rep += ' - ' + exmtxt + '\n'
-		# rep += '\n'
-	# if len(defs) == 0: rep = 'Word not recognized by dictionary.\n'
-	# return rep
-
-# def URBParser(soup, bWithExample):
-	# defs = soup.find_all('div', 'def-panel')
-	# rep = '\n'
-	# for i in range(len(defs)):
-		# txt = defs[i].find('div', class_='meaning')
-		# for dlm in txt.find_all('br'): dlm.replace_with('\n')
-		
-		# x = Format.strViewable(txt.get_text())
-		# rep += str(i+1)+'\n---\n' + x.replace('\n', ' \n') +'\n\n'
-		
-		# if bWithExample:
-			# exm = defs[i].find('div', class_='example')
-			# for dlm in exm.find_all('br'): dlm.replace_with('\n')
-			
-			# exmtxt = '  ' + Format.strViewable(exm.get_text()).replace('\n', '\n  ')
-			# if len(exmtxt)>0: rep += exmtxt + '\n'
-			
-	# if len(defs) == 0: rep = 'Word not recognized by dictionary.\n'
-	# return rep
+		return Format.setLineWidth(Format.strViewable(rep), wlim)
 
 def main():
 	""" A search program """
@@ -119,13 +81,16 @@ def main():
 				continue
 			
 			opt = sOpt[1:]
-			if opt in dicparser.DicUtil.dic_list: dic = opt
-			elif opt=='eg': bWithExample = True
+			if opt in dicparser.DicUtil.dic_list:
+				dic = opt
+			elif opt=='eg': 
+				bWithExample = True
 			elif opt[0]=='w':
 				if all((x in string.digits) for x in opt[1:]):
 					wlim = int(opt[1:])
 		
 		result = dicparser.DicUtil.searchWord(word, dic, bWithExample)
-		print(Format.formatted(result, bWithExample, wlim))
+		print(Format.formatted(result, bWithExample, wlim), end='')
 
-if __name__=="__main__": main()
+if __name__=="__main__":
+	main() # Run the example

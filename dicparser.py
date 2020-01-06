@@ -8,38 +8,6 @@ import string
 import requests
 from bs4 import BeautifulSoup
 
-class Format:
-	VIEWABLES = string.digits + string.ascii_letters + string.punctuation + ' \n'
-	
-	def strViewable(s):
-		sum = ''
-		for x in s:
-			if not x in Format.VIEWABLES:
-				if x == '\r': x = ' '
-				else: x = ' '
-			sum += x
-		
-		return sum
-	
-	def setLineWidth(s, wlim):
-		sum = ''
-		for ox in s.split('\n'):
-			cnt = 0
-			for x in ox.split(' '):
-				if len(x)<=0:
-					continue
-				
-				if cnt+len(x) >= wlim:
-					sum += '\n'
-					cnt = 0
-				
-				sum += x+' '
-				cnt += len(x)+1
-			
-			sum += '\n'
-		
-		return sum
-
 class Result:
 	"""
 	The query result.
@@ -54,46 +22,59 @@ class Result:
 		if bWithExample: self.examples = []
 		else: self.examples = None
 
-def OEDParser(soup, bWithExample):
-	rep = Result(bWithExample)
+class Parsers:
+	"""
+	The parser functions.
 	
-	defs = soup.find_all(class_='sn-g')
-	for i in range(len(defs)):
-		defx = []
-		for txt in defs[i].find_all('span', class_=['def', 'label-g', 'ndv', 'xr-g'], recursive=False):
-			defx.append(txt.get_text())
+	A parser function (as for now):
+		- Receives (soup, bWithExample)
+			soup -- An BeautifulSoup presenting the page result
+			bWithExample -- Are examples requested
 		
-		rep.defs.append(defx)
+		- Returns an Result object
+	"""
+	def OEDParser(soup, bWithExample):
+		""" The parser of Oxford Learner's Dictionary. """
+		rep = Result(bWithExample)
 		
-		if bWithExample:
-			examples = []
-			for exm in defs[i].find_all('span', class_='x'):
-				examples.append(exm.get_text())
+		defs = soup.find_all(class_='sn-g')
+		for i in range(len(defs)):
+			defx = []
+			for txt in defs[i].find_all('span', class_=['def', 'label-g', 'ndv', 'xr-g'], recursive=False):
+				defx.append(txt.get_text())
 			
-			rep.examples.append(examples)
-	
-	return rep
+			rep.defs.append(defx)
+			
+			if bWithExample:
+				examples = []
+				for exm in defs[i].find_all('span', class_='x'):
+					examples.append(exm.get_text())
+				
+				rep.examples.append(examples)
+		
+		return rep
 
-def URBParser(soup, bWithExample):
-	rep = Result(bWithExample)
-	
-	defs = soup.find_all('div', 'def-panel')
-	for i in range(len(defs)):
-		txt = defs[i].find('div', class_='meaning')
+	def URBParser(soup, bWithExample):
+		""" The parser of Urban's Dictionary. """
+		rep = Result(bWithExample)
 		
-		for dlm in txt.find_all('br'):
-			dlm.replace_with('\n')
-		
-		rep.defs.append([txt.get_text()])
-		
-		if bWithExample:
-			exm = defs[i].find('div', class_='example')
-			for dlm in exm.find_all('br'):
+		defs = soup.find_all('div', 'def-panel')
+		for i in range(len(defs)):
+			txt = defs[i].find('div', class_='meaning')
+			
+			for dlm in txt.find_all('br'):
 				dlm.replace_with('\n')
 			
-			rep.examples.append([exm.get_text()])
-	
-	return rep
+			rep.defs.append([txt.get_text()])
+			
+			if bWithExample:
+				exm = defs[i].find('div', class_='example')
+				for dlm in exm.find_all('br'):
+					dlm.replace_with('\n')
+				
+				rep.examples.append([exm.get_text()])
+		
+		return rep
 
 class DicUtil:
 	
@@ -109,8 +90,9 @@ class DicUtil:
 			self.urlformat = urlformat
 			self.parserfunc = parserfunc
 	
-	dic_list = {'oed': Dictionary('https://www.oxfordlearnersdictionaries.com/definition/english/%s', OEDParser),
-				'urb': Dictionary('https://www.urbandictionary.com/define.php?term=%s', URBParser)}
+	# The extensible dictionary list!
+	dic_list = {'oed': Dictionary('https://www.oxfordlearnersdictionaries.com/definition/english/%s', Parsers.OEDParser),
+				'urb': Dictionary('https://www.urbandictionary.com/define.php?term=%s', Parsers.URBParser)}
 	
 	def getWordPage(key, dic_obj):
 		""" Send request towards the online dictionary. """

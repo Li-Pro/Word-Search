@@ -1,10 +1,18 @@
 # Word-Search
 A simple word searcher (from Oxford Dictionary &amp; Urban Dictionary)
 
-## Version: alpha 1.0 - build004
-- OED & Urban is both available now!
-- Options are available (-oed, -urb, -eg)
+## Features
+- An extensible library that search & parse online dictionary. <sup>\[\*\]</sup>
+- Include an example program that do interactive searches.
+- Now it can parse from 2 online dictionaries!
 
+###### \**well(cough), its kinda buggy just now*
+
+## Our Aim
+- We aim to make an public extensible library that parse from lots of online dictionaries!
+
+## Version: alpha 2.0 -- build001
+- *Oxford Learner's Dictionary* & *Urban Dictionary* is both available now!
 - Known issue(s): OEDParser doesn't work with every tag correctly.
 
 ## License & Disclaimer
