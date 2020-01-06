@@ -6,7 +6,7 @@ A lightweight library that provides dictionary search.
 - Include an example program that do interactive searches.
 - Now it can parse from 2 online dictionaries!
 
-###### \**well(cough), its kinda buggy just now*
+###### \**well(cough), OED is [kinda buggy](https://github.com/Li-Pro/Word-Search/issues/1) just now*
 
 ## Our Aim
 - We aim to make an public extensible library that parse from lots of online dictionaries!
@@ -17,4 +17,5 @@ A lightweight library that provides dictionary search.
 
 ## License & Disclaimer
 This project is licensed under the terms of the MIT license.
+
 This project contains copyrighted content, as stated in FAIR_USE_DISCLAIMER.
