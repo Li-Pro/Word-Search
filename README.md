@@ -5,6 +5,8 @@ A simple word searcher (from Oxford Dictionary &amp; Urban Dictionary)
 - OED & Urban is both available now!
 - Options are available (-oed, -urb, -eg)
 
+- Known issue(s): OEDParser doesn't work with every tag correctly.
+
 ## License & Disclaimer
 This project is licensed under the terms of the MIT license.
 
