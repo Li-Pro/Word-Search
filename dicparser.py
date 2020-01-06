@@ -1,8 +1,8 @@
-#
-# Author: Li-Pro 2020
-#
-# The main dictionary parser library.
-#
+"""
+Author: Li-Pro 2020
+
+The main dictionary parser library.
+"""
 
 import string
 import requests
@@ -18,6 +18,7 @@ class Format:
 				if x == '\r': x = ' '
 				else: x = ' '
 			sum += x
+		
 		return sum
 	
 	def setLineWidth(s, wlim):
@@ -34,18 +35,15 @@ class Format:
 				
 				sum += x+' '
 				cnt += len(x)+1
-				# sum += ('(%d)' % cnt)
 			
 			sum += '\n'
 		
 		return sum
 
 def OEDParser(soup, bWithExample):
-	#print('#', soup)
 	defs = soup.find_all(class_='sn-g')
 	rep = ''
 	for i in range(len(defs)):
-		# if not len(defs[i].find_all('span', class_='def')): continue
 		rep += str(i+1)+'. '
 		for txt in defs[i].find_all('span', class_=['def', 'label-g', 'ndv', 'xr-g'], recursive=False):
 			rep += Format.strViewable(txt.get_text())+' '
@@ -80,14 +78,38 @@ def URBParser(soup, bWithExample):
 	return rep
 
 class DicUtil:
-	dic_list = {'oed': ('www.oxfordlearnersdictionaries.com/definition/english/%s', OEDParser),
-				'urb': ('www.urbandictionary.com/define.php?term=%s', URBParser)}
 	
-	def getPage(url): return requests.get(url).text
-	
-	def searchWord(key, dicprf, bWithExample):
-		if not dicprf in DicUtil.dic_list:
-			dicprf = 'oed'
+	class Dictionary:
+		"""
+		The dictionary object.
 		
-		rep = DicUtil.getPage('https://' + ((DicUtil.dic_list[dicprf][0]) % (key)))
-		return DicUtil.dic_list[dicprf][1](BeautifulSoup(rep, 'lxml'), bWithExample)
+		Vars:
+		urlformat -- the request url format [(%s) % (word)]
+		parserfunc -- the parse function
+		"""
+		def __init__(self, urlformat, parserfunc):
+			self.urlformat = urlformat
+			self.parserfunc = parserfunc
+	
+	dic_list = {'oed': Dictionary('https://www.oxfordlearnersdictionaries.com/definition/english/%s', OEDParser),
+				'urb': Dictionary('https://www.urbandictionary.com/define.php?term=%s', URBParser)}
+	
+	def getWordPage(key, dic_obj):
+		""" Send request towards the online dictionary. """
+		url = str(dic_obj.urlformat % (key))
+		return requests.get(url).text
+	
+	def searchWord(key, dicname, bWithExample):
+		"""
+		Provide a search utility.
+		
+		key -- the word
+		dicname -- the dictionary name (as in dic_list)
+		bWithExample -- whether example is requested
+		"""
+		if not dicname in DicUtil.dic_list:
+			dicname = 'oed'
+		
+		dic_obj = DicUtil.dic_list[dicname]
+		rep = DicUtil.getWordPage(key, dic_obj)
+		return dic_obj.parserfunc(BeautifulSoup(rep, 'lxml'), bWithExample)

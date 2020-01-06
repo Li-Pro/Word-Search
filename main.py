@@ -1,15 +1,15 @@
-#
-# Author: Li-Pro 2020
-#
-# An example interactive program that searches for words.
-#
+"""
+Author: Li-Pro 2020
+
+An example interactive program that searches for words.
+"""
 
 import sys
 import string
 import requests
 from bs4 import BeautifulSoup
 
-import dicparser
+import dicparser  # The main library 
 
 def main():
 	print("----- Search Panel -----\n")
@@ -22,9 +22,10 @@ def main():
 			continue
 		
 		seq = line.split(' ')
-		word, dic, bWithExample, wlim = seq[0], 'oed', False, 90 # word & options
+		word, dic, bWithExample, wlim = seq[0], 'oed', False, 90  # word & options
 		for sOpt in seq[1:]:
-			if len(sOpt)<=2 or sOpt[0]!='-': continue
+			if len(sOpt)<=2 or sOpt[0]!='-':
+				continue
 			
 			opt = sOpt[1:]
 			if opt in dicparser.DicUtil.dic_list: dic = opt
