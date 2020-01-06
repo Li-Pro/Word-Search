@@ -40,41 +40,59 @@ class Format:
 		
 		return sum
 
+class Result:
+	"""
+	The query result.
+	Both variables are list of lists.
+	e.g. defs = [ def_1[[def_1.1], [def_1.2], ... , [def_1.n]], def_2[...], ... , def_n[...] ]
+	
+	defs -- list of definitions ([]=not found)
+	examples -- list of examples (None=not asked, []=not provided)
+	"""
+	def __init__(self, bWithExample):
+		self.defs = []
+		if bWithExample: self.examples = []
+		else: self.examples = None
+
 def OEDParser(soup, bWithExample):
+	rep = Result(bWithExample)
+	
 	defs = soup.find_all(class_='sn-g')
-	rep = ''
 	for i in range(len(defs)):
-		rep += str(i+1)+'. '
+		defx = []
 		for txt in defs[i].find_all('span', class_=['def', 'label-g', 'ndv', 'xr-g'], recursive=False):
-			rep += Format.strViewable(txt.get_text())+' '
-		rep += '\n'
+			defx.append(txt.get_text())
+		
+		rep.defs.append(defx)
 		
 		if bWithExample:
+			examples = []
 			for exm in defs[i].find_all('span', class_='x'):
-				exmtxt = Format.strViewable(exm.get_text())
-				if len(exmtxt)>0: rep += ' - ' + exmtxt + '\n'
-		rep += '\n'
-	if len(defs) == 0: rep = 'Word not recognized by dictionary.\n'
+				examples.append(exm.get_text())
+			
+			rep.examples.append(examples)
+	
 	return rep
 
 def URBParser(soup, bWithExample):
+	rep = Result(bWithExample)
+	
 	defs = soup.find_all('div', 'def-panel')
-	rep = '\n'
 	for i in range(len(defs)):
 		txt = defs[i].find('div', class_='meaning')
-		for dlm in txt.find_all('br'): dlm.replace_with('\n')
 		
-		x = Format.strViewable(txt.get_text())
-		rep += str(i+1)+'\n---\n' + x.replace('\n', ' \n') +'\n\n'
+		for dlm in txt.find_all('br'):
+			dlm.replace_with('\n')
+		
+		rep.defs.append([txt.get_text()])
 		
 		if bWithExample:
 			exm = defs[i].find('div', class_='example')
-			for dlm in exm.find_all('br'): dlm.replace_with('\n')
+			for dlm in exm.find_all('br'):
+				dlm.replace_with('\n')
 			
-			exmtxt = '  ' + Format.strViewable(exm.get_text()).replace('\n', '\n  ')
-			if len(exmtxt)>0: rep += exmtxt + '\n'
-			
-	if len(defs) == 0: rep = 'Word not recognized by dictionary.\n'
+			rep.examples.append([exm.get_text()])
+	
 	return rep
 
 class DicUtil:
