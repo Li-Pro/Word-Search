@@ -1,5 +1,12 @@
-# Parser of search result
+#
+# Author: Li-Pro 2020
+#
+# The main dictionary parser library.
+#
+
 import string
+import requests
+from bs4 import BeautifulSoup
 
 class Format:
 	VIEWABLES = string.digits + string.ascii_letters + string.punctuation + ' \n'
@@ -71,3 +78,16 @@ def URBParser(soup, bWithExample):
 			
 	if len(defs) == 0: rep = 'Word not recognized by dictionary.\n'
 	return rep
+
+class DicUtil:
+	dic_list = {'oed': ('www.oxfordlearnersdictionaries.com/definition/english/%s', OEDParser),
+				'urb': ('www.urbandictionary.com/define.php?term=%s', URBParser)}
+	
+	def getPage(url): return requests.get(url).text
+	
+	def searchWord(key, dicprf, bWithExample):
+		if not dicprf in DicUtil.dic_list:
+			dicprf = 'oed'
+		
+		rep = DicUtil.getPage('https://' + ((DicUtil.dic_list[dicprf][0]) % (key)))
+		return DicUtil.dic_list[dicprf][1](BeautifulSoup(rep, 'lxml'), bWithExample)
