@@ -1,5 +1,5 @@
 # Word-Search
-A simple word searcher (from Oxford Dictionary &amp; Urban Dictionary)
+A lightweight library that provides dictionary search.
 
 ## Features
 - An extensible library that search & parse online dictionary. <sup>\[\*\]</sup>
@@ -17,5 +17,4 @@ A simple word searcher (from Oxford Dictionary &amp; Urban Dictionary)
 
 ## License & Disclaimer
 This project is licensed under the terms of the MIT license.
-
 This project contains copyrighted content, as stated in FAIR_USE_DISCLAIMER.
