@@ -2,18 +2,16 @@
 A lightweight library that provides dictionary search.
 
 ## Features
-- An extensible library that search & parse online dictionary. <sup>\[\*\]</sup>
+- An extensible library that search & parse online dictionary.
 - Include an example program that do interactive searches.
 - Now it can parse from 2 online dictionaries!
-
-###### \**well(cough), OED is [kinda buggy](https://github.com/Li-Pro/Word-Search/issues/1) just now*
 
 ## Our Aim
 - We aim to make an public extensible library that parse from lots of online dictionaries!
 
-## Version: alpha 2.0 -- build001
+## Version: alpha 2.0 -- build002
 - *Oxford Learner's Dictionary* & *Urban Dictionary* is both available now!
-- Known issue(s): OEDParser doesn't work with every tag correctly.
+- Known issue(s): ~~OEDParser doesn't work with every tag correctly.~~
 
 ## License & Disclaimer
 This project is licensed under the terms of the MIT license.

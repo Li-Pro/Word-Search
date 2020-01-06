@@ -1,0 +1,11 @@
+Dependencies
+---
+Requirements are stated in 'requirements.txt'.
+(use 'pip3 install -r requirements.txt' to install.)
+
+Build
+---
+The main library is contained in 'dicparser.py'
+(Copy only this file when using.)
+
+Run the 'demo.py' for demo.

@@ -46,7 +46,7 @@ class Format:
 	def formatted(result, bWithExample, wlim):
 		""" An format example. """
 		if not len(result.defs):
-			return 'Word not found.\n'
+			return 'Word not found.\n\n'
 		
 		rep = ''
 		for i in range(len(result.defs)):

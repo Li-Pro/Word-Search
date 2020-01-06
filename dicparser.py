@@ -37,11 +37,24 @@ class Parsers:
 		""" The parser of Oxford Learner's Dictionary. """
 		rep = Result(bWithExample)
 		
-		defs = soup.find_all(class_='sn-g')
+		# defs from top
+		if soup.find('div', class_='top-g')!=None:
+			for txt in soup.find('div', class_='top-g').find_all('span', class_='xr-gs'):
+				rep.defs.append([txt.get_text()])
+				
+				if bWithExample:
+					rep.examples.append([])
+		
+		# defs in middle
+		defs = soup.find_all(class_=['sn-g'])
 		for i in range(len(defs)):
 			defx = []
-			for txt in defs[i].find_all('span', class_=['def', 'label-g', 'ndv', 'xr-g'], recursive=False):
-				defx.append(txt.get_text())
+			for txt in defs[i].find_all('span', class_=['prefix', 'def', 'label-g', 'ndv', 'xr-gs', 'suffix'], recursive=False):
+				if len(txt.get_text()):
+					defx.append(txt.get_text())
+			
+			if not len(defx):
+				continue
 			
 			rep.defs.append(defx)
 			

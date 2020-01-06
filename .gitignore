@@ -4,3 +4,6 @@ venv/
 # Ignore build files
 build.bat
 __pycache__/
+
+# Old history
+old_versions/
