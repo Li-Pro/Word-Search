@@ -77,21 +77,21 @@ def main():
 			continue
 		
 		seq = line.split(' ')
-		word, dic, bWithExample, wlim = seq[0], 'oed', False, 90  # word & options
-		for sOpt in seq[1:]:
-			if len(sOpt)<=2 or sOpt[0]!='-':
-				continue
-			
-			opt = sOpt[1:]
-			if opt in dicparser.DicUtil.dic_list:
-				dic = opt
-			elif opt=='eg': 
-				bWithExample = True
-			elif opt[0]=='w':
-				if all((x in string.digits) for x in opt[1:]):
-					wlim = int(opt[1:])
+		word, dic, bWithExample, wlim = [], 'oed', False, 90  # word & options
+		for sOpt in seq:
+			if len(sOpt)>1 and sOpt[0]=='-':
+				opt = sOpt[1:]
+				if opt in dicparser.DicUtil.dic_list:
+					dic = opt
+				elif opt=='eg': 
+					bWithExample = True
+				elif opt[0]=='w' and len(opt[1:])>0:
+					if all((x in string.digits) for x in opt[1:]):
+						wlim = int(opt[1:])
+			elif len(sOpt)>0:
+				word.append(sOpt)
 		
-		result = dicparser.DicUtil.searchWord(word, dic, bWithExample)
+		result = dicparser.DicUtil.searchWord(' '.join(word), dic, bWithExample)
 		print(Format.formatted(result, bWithExample, wlim), end='')
 
 if __name__=="__main__":
