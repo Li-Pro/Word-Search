@@ -1,17 +1,14 @@
 # Word-Search
-A lightweight library that provides dictionary search.
+A simple word searcher(from Oxford Dictionary & Urban Dictionary).
 
 ## Features
-- An extensible library that search & parse online dictionary.
-- Include an example program that do interactive searches.
+- A simple program that do interactive dictionary searches.
+- Include an extensible library that search & parse online dictionary.
 - Now it can parse from 2 online dictionaries!
-
-## Our Aim
-- We aim to make an public extensible library that parse from lots of online dictionaries!
 
 ## Version: alpha 2.0 -- build002
 - *Oxford Learner's Dictionary* & *Urban Dictionary* is both available now!
-- Known issue(s): ~~OEDParser doesn't work with every tag correctly.~~
+- More dictionaries would be added recently!
 
 ## License & Disclaimer
 This project is licensed under the terms of the MIT license.
