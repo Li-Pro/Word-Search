@@ -9,7 +9,7 @@ An example interactive program that searches for words.
 import sys
 import string
 
-import lib.dicparser as dicparser # The main library
+import diclib.dicparser as dicparser # The main library
 
 class Format:
 	VIEWABLES = string.digits + string.ascii_letters + string.punctuation + ' \n'
