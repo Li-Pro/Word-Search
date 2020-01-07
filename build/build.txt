@@ -5,7 +5,7 @@ Requirements are stated in '\requirements.txt'.
 
 Build
 ---
-The main library is contained in 'lib\'.
+The main library is contained in 'diclib\'.
 (Copy this folder when using.)
 
 Run the 'demo.py' for demo.
@@ -13,5 +13,5 @@ Run the 'demo.py' for demo.
 Using
 ---
 1. Copy the 'diclib' folder to your project.
-2. In Python: 'import diclib.dicparser' / 'import diclib.dicparser as dicparser'.
-3. Refer to 'dicparser.py' for more details
+2. In Python: 'import diclib'.
+3. Refer to 'diclib\' for more details

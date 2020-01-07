@@ -9,7 +9,7 @@ An example interactive program that searches for words.
 import sys
 import string
 
-import diclib.dicparser as dicparser # The main library
+import diclib # The main library
 
 class Format:
 	VIEWABLES = string.digits + string.ascii_letters + string.punctuation + ' \n'
@@ -81,7 +81,7 @@ def main():
 		for sOpt in seq:
 			if len(sOpt)>1 and sOpt[0]=='-':
 				opt = sOpt[1:]
-				if opt in dicparser.DicUtil.dic_list:
+				if opt in diclib.dic_list:
 					dic = opt
 				elif opt=='eg': 
 					bWithExample = True
@@ -91,7 +91,7 @@ def main():
 			elif len(sOpt)>0:
 				word.append(sOpt)
 		
-		result = dicparser.DicUtil.searchWord(' '.join(word), dic, bWithExample)
+		result = diclib.searchWord(' '.join(word), dic, bWithExample)
 		print(Format.formatted(result, bWithExample, wlim), end='')
 
 if __name__=="__main__":

@@ -5,7 +5,7 @@ def OEDParser(soup, bWithExample):
 	""" The parser of Oxford Learner's Dictionary. """
 	rep = dicTypes.Result(bWithExample)
 	
-	# defs from top
+	# Top part
 	if soup.find('div', class_='top-g')!=None:
 		for txt in soup.find('div', class_='top-g').find_all('span', class_='xr-gs'):
 			rep.defs.append([txt.get_text()])
@@ -13,7 +13,7 @@ def OEDParser(soup, bWithExample):
 			if bWithExample:
 				rep.examples.append([])
 	
-	# defs in middle
+	# Middle part
 	defs = soup.find_all(class_=['sn-g'])
 	for i in range(len(defs)):
 		defx = []

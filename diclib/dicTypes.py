@@ -1,7 +1,7 @@
 """
 Author: Li-Pro 2020
 
-The main dictionary parser library.
+The dictionary types.
 """
 
 class Result:
