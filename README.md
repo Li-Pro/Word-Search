@@ -1,4 +1,4 @@
-# Word-Search
+# Word-Search (diclib)
 A simple word searcher(from Oxford Dictionary & Urban Dictionary & Cambridge Dictionary).
 
 ![Intro](resource/Intro.png)
@@ -8,7 +8,9 @@ A simple word searcher(from Oxford Dictionary & Urban Dictionary & Cambridge Dic
 - Include an extensible library that search & parse online dictionary.
 - Now it supports 3 online dictionaries!
 
-## Version: alpha 3.0 -- build002
+## Version: alpha 3.0 -- build003
+![Example](resource/example.png)
+
 - Added support of Cambridge Dictionary.
 - *Oxford Learner's Dictionary* & *Urban Dictionary* & *Cambridge Dictionary* is both available now!
 - More dictionaries would be added recently!
