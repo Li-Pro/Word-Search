@@ -13,4 +13,4 @@ A simple word searcher(from Oxford Dictionary & Urban Dictionary).
 ## License & Disclaimer
 This project is licensed under the terms of the MIT license.
 
-This project contains copyrighted content, as stated in FAIR_USE_DISCLAIMER.
+This project contains copyrighted content. Usage of it is stated in legal\FAIR_USE_DISCLAIMER.

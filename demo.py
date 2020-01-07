@@ -1,13 +1,16 @@
 """
 Author: Li-Pro 2020
 
+Refer to build/requirements.txt for build informations.
+
 An example interactive program that searches for words.
 """
 
 import sys
 import string
 
-import dicparser  # The main library
+import importlib
+dicparser = importlib.import_module('lib.dicparser')  # The main library
 
 class Format:
 	VIEWABLES = string.digits + string.ascii_letters + string.punctuation + ' \n'
