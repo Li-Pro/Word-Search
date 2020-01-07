@@ -1,5 +1,6 @@
 # Word-Search
 A simple word searcher(from Oxford Dictionary & Urban Dictionary).
+
 ![Intro](resource/Intro.png)
 
 ## Features
