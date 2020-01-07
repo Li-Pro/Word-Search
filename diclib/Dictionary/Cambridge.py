@@ -14,6 +14,10 @@ def CambridgeParser(soup, bWithExample):
 		defx.append(defs[i].find('div', class_='di-title').get_text())
 		if defs[i].find('div', class_='posgram')!=None:
 			defx.append(defs[i].find('div', class_='posgram').get_text())
+		
+		if defs[i].find('span', class_='anc-info-head')!=None:
+			defx.append(defs[i].find('span', class_='anc-info-head').get_text())
+		
 		defx.append(defs[i].find('div', class_='def').get_text())
 		
 		rep.defs.append(defx)
