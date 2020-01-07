@@ -7,3 +7,6 @@ __pycache__/
 
 # Old history
 old_versions/
+
+# Internal Files
+resource/org/

@@ -1,12 +1,13 @@
 # Word-Search
 A simple word searcher(from Oxford Dictionary & Urban Dictionary).
+![Intro](resource/Intro.png)
 
 ## Features
 - A simple program that do interactive dictionary searches.
 - Include an extensible library that search & parse online dictionary.
 - Now it can parse from 2 online dictionaries!
 
-## Version: alpha 2.0 -- build002
+## Version: alpha 2.0 -- build003
 - *Oxford Learner's Dictionary* & *Urban Dictionary* is both available now!
 - More dictionaries would be added recently!
 
