@@ -11,13 +11,16 @@ from bs4 import BeautifulSoup
 """ The dictionaries """
 import diclib.Dictionary.OxfordLearners as dicOxfordLearners
 import diclib.Dictionary.Urban as dicUrban
+import diclib.Dictionary.Cambridge as dicCambridge
 
 # The extensible dictionary list!
-dic_list = {'oed': dicOxfordLearners.DIC_OBJ, 'urb': dicUrban.DIC_OBJ}
+dic_list = {'oed': dicOxfordLearners.DIC_OBJ, 'urb': dicUrban.DIC_OBJ, 'camb': dicCambridge.DIC_OBJ}
 
 def getWordPage(key, dic_obj):
 	""" Send request towards the online dictionary. """
-	url = str(dic_obj.urlformat % (key))
+	url = ''
+	if type(dic_obj.urlformat)==str: url = str(dic_obj.urlformat % (key))
+	elif callable(dic_obj.urlformat): url = dic_obj.urlformat(key)
 	return requests.get(url).text
 
 def searchWord(key, dicname, bWithExample):
