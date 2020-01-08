@@ -66,8 +66,21 @@ class Format:
 		return Format.setLineWidth(Format.strViewable(rep), wlim)
 
 def main():
-	""" A search program """
-	print("----- Search Panel -----\n")
+	""" A search program example. """
+	print("----- Search Panel -----")
+	print("Usage:")
+	print(" Type a word to search.")
+	print()
+	print("Options:")
+	print(" -oed : Urban Dictionary")
+	print(" -urb : Urban Dictionary")
+	print(" -camb: Cambridge Dictionary")
+	print()
+	print(" -eg  : show th examples")
+	print(" -wXX : set line width to XX")
+	print("------------------------")
+	print()
+	
 	while True:
 		try: line = input("Search: ")
 		except (EOFError): break
