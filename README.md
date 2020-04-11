@@ -8,12 +8,12 @@ A simple word searcher(from Oxford Dictionary & Urban Dictionary & Cambridge Dic
 - Include an extensible library that search & parse online dictionary.
 - Now it supports 3 online dictionaries!
 
-## Version: alpha 3.0 -- build003
+## Version: alpha 3.0 -- build004
 ![Example](resource/example.png)
 
-- Added support of Cambridge Dictionary.
-- *Oxford Learner's Dictionary* & *Urban Dictionary* & *Cambridge Dictionary* is both available now!
-- More dictionaries would be added recently!
+- ~*Oxford Learner's Dictionary*~ & *Urban Dictionary* & *Cambridge Dictionary* are all available now!
+- *Oxford Learner's Dictionary* has updated their web, web parser now requires update (currently *Cambridge Dictionary*
+is set to default).
 
 ## License & Disclaimer
 This project is licensed under the terms of the MIT license.
