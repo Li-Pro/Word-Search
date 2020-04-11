@@ -72,7 +72,7 @@ def main():
 	print(" Type a word to search.")
 	print()
 	print("Options:")
-	print(" -oed : Urban Dictionary")
+	print(" -oed : Urban Dictionary (Update Required)")
 	print(" -urb : Urban Dictionary")
 	print(" -camb: Cambridge Dictionary")
 	print()
@@ -90,7 +90,7 @@ def main():
 			continue
 		
 		seq = line.split(' ')
-		word, dic, bWithExample, wlim = [], 'oed', False, 90  # word & options
+		word, dic, bWithExample, wlim = [], 'urb', False, 90  # word & options
 		for sOpt in seq:
 			if len(sOpt)>1 and sOpt[0]=='-':
 				opt = sOpt[1:]

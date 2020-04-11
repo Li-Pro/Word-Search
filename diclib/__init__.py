@@ -23,7 +23,7 @@ def getWordPage(key, dic_obj):
 	elif callable(dic_obj.urlformat): url = dic_obj.urlformat(key)
 	return requests.get(url).text
 
-def searchWord(key, dicname='oed', bWithExample=False):
+def searchWord(key, dicname='urb', bWithExample=False):
 	"""
 	Provide a search utility.
 	
@@ -32,7 +32,7 @@ def searchWord(key, dicname='oed', bWithExample=False):
 	bWithExample -- whether example is requested
 	"""
 	if not dicname in dic_list:
-		dicname = 'oed'
+		dicname = 'urb'
 	
 	dic_obj = dic_list[dicname]
 	rep = getWordPage(key, dic_obj)
