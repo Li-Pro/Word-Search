@@ -1,7 +1,7 @@
 """ Dictionary: Cambridge Dictionary """
 import string
 
-from ..dicTypes import Result as DicResult, Dictionary as DicBase
+from ..dicTypes import DicResult, DicBase
 
 def CambridgeParser(soup, bWithExample):
 	""" The parser of Cambridge Dictionary. """
@@ -31,10 +31,13 @@ def URLFromKey(key):
 	for ch in key:
 		if not ch in string.ascii_letters:
 			ch = '-'
-	return str('https://dictionary.cambridge.org/dictionary/english/%s' % (key))
+	return 'https://dictionary.cambridge.org/dictionary/english/{}'.format(key)
 
 class Dictionary(DicBase):
+	def parse(self, page, bWithExample):
+		return CambridgeParser(page, bWithExample)
+	
 	def formatURL(self, key):
 		return URLFromKey(key)
 
-DIC_OBJ = Dictionary(URLFromKey, CambridgeParser)
+DIC_OBJ = Dictionary()

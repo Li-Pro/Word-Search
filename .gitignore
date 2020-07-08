@@ -2,8 +2,9 @@
 venv/
 
 # Ignore build files
-build.bat
 **/__pycache__/
 
 # Internal Files
+build.bat
+test.bat
 _local/

@@ -14,7 +14,7 @@ from .Dictionary import OxfordLearners
 from .Dictionary import Urban
 from .Dictionary import Cambridge
 
-__all__ = ['OxfordLearners', 'Urban', 'Cambridge']
+__all__ = ['OxfordLearners', 'Urban', 'Cambridge', 'searchWord', 'getWordPage']
 
 # The extensible dictionary list!
 dic_list = {'oed': OxfordLearners.DIC_OBJ,
@@ -38,4 +38,4 @@ def searchWord(key, dicname='camb', bWithExample=False):
 	
 	dic_obj = dic_list[dicname]
 	rep = getWordPage(key, dic_obj)
-	return dic_obj.parserfunc(BeautifulSoup(rep, 'lxml'), bWithExample)
+	return dic_obj.parse(BeautifulSoup(rep, 'lxml'), bWithExample)

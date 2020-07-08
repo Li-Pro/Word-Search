@@ -1,5 +1,6 @@
 """ Dictionary: Oxford Learner's Dictionary """
-from ..dicTypes import Result as DicResult, Dictionary as DicBase
+
+from ..dicTypes import DicResult, DicBase
 
 def OEDParser(soup, bWithExample):
 	""" The parser of Oxford Learner's Dictionary. """
@@ -36,7 +37,10 @@ def OEDParser(soup, bWithExample):
 	return rep
 
 class Dictionary(DicBase):
+	def parse(self, page, bWithExample):
+		return OEDParser(page, bWithExample)
+	
 	def formatURL(self, key):
-		return 'https://www.oxfordlearnersdictionaries.com/definition/english/%s'
+		return 'https://www.oxfordlearnersdictionaries.com/definition/english/{}'.format(key)
 
-DIC_OBJ = Dictionary('https://www.oxfordlearnersdictionaries.com/definition/english/%s', OEDParser)
+DIC_OBJ = Dictionary()
