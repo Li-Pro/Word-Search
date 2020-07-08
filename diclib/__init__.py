@@ -23,13 +23,7 @@ dic_list = {'oed': OxfordLearners.DIC_OBJ,
 
 def getWordPage(key, dic_obj):
 	""" Send request towards the online dictionary. """
-	url = ''
-	if type(dic_obj.urlformat)==str:
-		url = str(dic_obj.urlformat % (key))
-	elif callable(dic_obj.urlformat):
-		url = dic_obj.urlformat(key)
-	
-	return requests.get(url).text
+	return dic_obj.requestWord(key)
 
 def searchWord(key, dicname='camb', bWithExample=False):
 	"""

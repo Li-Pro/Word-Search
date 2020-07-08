@@ -1,11 +1,11 @@
 """ Dictionary: Cambridge Dictionary """
 import string
 
-from .. import dicTypes
+from ..dicTypes import Result as DicResult, Dictionary as DicBase
 
 def CambridgeParser(soup, bWithExample):
 	""" The parser of Cambridge Dictionary. """
-	rep = dicTypes.Result(bWithExample)
+	rep = DicResult(bWithExample)
 	
 	for ppdef in soup.find_all('div', class_='entry-body__el'):
 		entry_info = ' '.join([tg.get_text() for tg in ppdef.find_all(class_=['posgram', 'anc-info-head'])])
@@ -33,4 +33,8 @@ def URLFromKey(key):
 			ch = '-'
 	return str('https://dictionary.cambridge.org/dictionary/english/%s' % (key))
 
-DIC_OBJ = dicTypes.Dictionary(URLFromKey, CambridgeParser)
+class Dictionary(DicBase):
+	def formatURL(self, key):
+		return URLFromKey(key)
+
+DIC_OBJ = Dictionary(URLFromKey, CambridgeParser)

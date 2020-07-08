@@ -1,9 +1,9 @@
 """ Dictionary: Oxford Learner's Dictionary """
-from .. import dicTypes
+from ..dicTypes import Result as DicResult, Dictionary as DicBase
 
 def OEDParser(soup, bWithExample):
 	""" The parser of Oxford Learner's Dictionary. """
-	rep = dicTypes.Result(bWithExample)
+	rep = DicResult(bWithExample)
 	
 	# Top part
 	if soup.find('div', class_='top-g')!=None:
@@ -35,4 +35,8 @@ def OEDParser(soup, bWithExample):
 	
 	return rep
 
-DIC_OBJ = dicTypes.Dictionary('https://www.oxfordlearnersdictionaries.com/definition/english/%s', OEDParser)
+class Dictionary(DicBase):
+	def formatURL(self, key):
+		return 'https://www.oxfordlearnersdictionaries.com/definition/english/%s'
+
+DIC_OBJ = Dictionary('https://www.oxfordlearnersdictionaries.com/definition/english/%s', OEDParser)

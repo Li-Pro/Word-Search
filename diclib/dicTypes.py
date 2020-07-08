@@ -4,6 +4,9 @@ Author: Li-Pro 2020
 The dictionary types.
 """
 
+import requests
+
+
 class Result:
 	"""
 	The query result.
@@ -44,3 +47,13 @@ class Dictionary:
 		def __init__(self, urlformat, parserfunc):
 			self.urlformat = urlformat
 			self.parserfunc = parserfunc
+		
+		def formatURL(self, key):
+			return '%s'
+		
+		def requestWord(self, key):
+			url = self.formatURL(key)
+			return requests.get(url).text
+		
+		def __getattr__(self, attr):
+			raise AttributeError

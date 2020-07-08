@@ -1,9 +1,9 @@
 """ Dictionary: Urban Dictionary """
-from .. import dicTypes
+from ..dicTypes import Result as DicResult, Dictionary as DicBase
 
 def URBParser(soup, bWithExample):
 	""" The parser of Urban's Dictionary. """
-	rep = dicTypes.Result(bWithExample)
+	rep = DicResult(bWithExample)
 	
 	defs = soup.find_all('div', 'def-panel')
 	for i in range(len(defs)):
@@ -23,4 +23,8 @@ def URBParser(soup, bWithExample):
 	
 	return rep
 
-DIC_OBJ = dicTypes.Dictionary('https://www.urbandictionary.com/define.php?term=%s', URBParser)
+class Dictionary(DicBase):
+	def formatURL(self, key):
+		return 'https://www.urbandictionary.com/define.php?term=%s'
+
+DIC_OBJ = Dictionary('https://www.urbandictionary.com/define.php?term=%s', URBParser)
