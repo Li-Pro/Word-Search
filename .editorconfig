@@ -1,0 +1,8 @@
+# Top-most EditorConfig file
+root = true
+
+# Python Indentation config
+[*.py]
+indent_style = tab
+indent_size = tab
+tab_width = 4
