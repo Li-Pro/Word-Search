@@ -37,25 +37,25 @@ class Parsers:
 	pass
 
 class DicBase:
-		"""
-		The dictionary object.
-		
-		Vars:
-		urlformat -- the request url format (urlformat % (word)) or format function (function(key)->str)
-		parserfunc -- the parse function
-		"""
-		def __init__(self):
-			return
-		
-		def parse(self, page, bWithExample):
-			return DicResult(bWithExample)
-		
-		def formatURL(self, key):
-			return '%s'
-		
-		def requestWord(self, key):
-			url = self.formatURL(key)
-			return requests.get(url).text
-		
-		def __getattr__(self, attr):
-			raise AttributeError
+	"""
+	The dictionary object.
+	
+	Vars:
+	urlformat -- the request url format (urlformat % (word)) or format function (function(key)->str)
+	parserfunc -- the parse function
+	"""
+	def __init__(self):
+		return
+	
+	def parse(self, page, bWithExample):
+		return DicResult(bWithExample)
+	
+	def formatURL(self, key):
+		return '%s'
+	
+	def requestWord(self, key):
+		url = self.formatURL(key)
+		return requests.get(url).text
+	
+	def __getattr__(self, attr):
+		raise AttributeError
