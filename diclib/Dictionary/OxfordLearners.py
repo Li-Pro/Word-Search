@@ -1,5 +1,5 @@
 """ Dictionary: Oxford Learner's Dictionary """
-import diclib.dicTypes as dicTypes
+from .. import dicTypes
 
 def OEDParser(soup, bWithExample):
 	""" The parser of Oxford Learner's Dictionary. """

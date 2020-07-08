@@ -15,16 +15,18 @@ class Result:
 	"""
 	def __init__(self, bWithExample):
 		self.defs = []
-		if bWithExample: self.examples = []
-		else: self.examples = None
+		if bWithExample:
+			self.examples = []
+		else:
+			self.examples = None
 
 class Parsers:
 	"""
 	The parser functions.
 	
-	A parser function (as for now):
+	A parser function:
 		- Receives (soup, bWithExample)
-			soup -- An BeautifulSoup presenting the page result
+			soup -- A BeautifulSoup object presenting the page result
 			bWithExample -- Are examples requested
 		
 		- Returns an Result object
@@ -36,7 +38,7 @@ class Dictionary:
 		The dictionary object.
 		
 		Vars:
-		urlformat -- the request url format (str[(%s) % (word)] or func) ####### NOT WORKING YET #######
+		urlformat -- the request url format (urlformat % (word)) or format function (function(key)->str)
 		parserfunc -- the parse function
 		"""
 		def __init__(self, urlformat, parserfunc):

@@ -10,14 +10,16 @@ import requests
 from bs4 import BeautifulSoup
 
 """ The dictionaries """
-from .Dictionary import OxfordLearners as dicOxfordLearners
-from .Dictionary import Urban as dicUrban
-from .Dictionary import Cambridge as dicCambridge
+from .Dictionary import OxfordLearners
+from .Dictionary import Urban
+from .Dictionary import Cambridge
+
+__all__ = ['OxfordLearners', 'Urban', 'Cambridge']
 
 # The extensible dictionary list!
-dic_list = {'oed': dicOxfordLearners.DIC_OBJ,
-			'urb': dicUrban.DIC_OBJ,
-			'camb': dicCambridge.DIC_OBJ}
+dic_list = {'oed': OxfordLearners.DIC_OBJ,
+			'urb': Urban.DIC_OBJ,
+			'camb': Cambridge.DIC_OBJ}
 
 def getWordPage(key, dic_obj):
 	""" Send request towards the online dictionary. """

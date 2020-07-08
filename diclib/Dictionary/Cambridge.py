@@ -1,7 +1,7 @@
 """ Dictionary: Cambridge Dictionary """
-import diclib.dicTypes as dicTypes
-
 import string
+
+from .. import dicTypes
 
 def CambridgeParser(soup, bWithExample):
 	""" The parser of Cambridge Dictionary. """

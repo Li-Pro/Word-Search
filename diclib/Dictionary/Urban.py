@@ -1,5 +1,5 @@
 """ Dictionary: Urban Dictionary """
-import diclib.dicTypes as dicTypes
+from .. import dicTypes
 
 def URBParser(soup, bWithExample):
 	""" The parser of Urban's Dictionary. """
