@@ -9,41 +9,39 @@ An example interactive program that searches for words.
 import sys
 import string
 
-import diclib # The main library
+# The main library
+import diclib
 
 class Format:
 	VIEWABLES = string.digits + string.ascii_letters + string.punctuation + ' \n'
 	
 	def strViewable(s):
 		""" Format to readable. Prevent '\\r'. """
-		sum = ''
+		S = ''
 		for x in s:
-			if not x in Format.VIEWABLES:
-				if x == '\r': x = ' '
-				else: x = ' '
-			sum += x
+			S += x if (x in Format.VIEWABLES) else ' '
 		
-		return sum
+		return S
 	
 	def setLineWidth(s, wlim):
 		""" To be easier to read. """
-		sum = ''
+		S = ''
 		for ox in s.split('\n'):
 			cnt = 0
 			for x in ox.split(' '):
-				if len(x)<=0:
+				if len(x) <= 0:
 					continue
 				
 				if cnt+len(x) >= wlim:
-					sum += '\n'
+					S += '\n'
 					cnt = 0
 				
-				sum += x+' '
-				cnt += len(x)+1
+				S += (x+' ')
+				cnt += (len(x)+1)
 			
-			sum += '\n'
+			S += '\n'
 		
-		return sum
+		return S
 	
 	def formatted(result, bWithExample, wlim):
 		""" An format example. """
@@ -71,11 +69,13 @@ def main():
 	print("Usage:")
 	print(" Type a word to search.")
 	print()
+	
 	print("Options:")
-	print(" -oed : Urban Dictionary (Update Required)")
+	print(" -oed : Oxford English Dictionary (Update Required)")
 	print(" -urb : Urban Dictionary")
 	print(" -camb: Cambridge Dictionary")
 	print()
+	
 	print(" -eg  : show th examples")
 	print(" -wXX : set line width to XX")
 	print("------------------------")
@@ -92,16 +92,16 @@ def main():
 		seq = line.split(' ')
 		word, dic, bWithExample, wlim = [], 'camb', False, 90  # word & options
 		for sOpt in seq:
-			if len(sOpt)>1 and sOpt[0]=='-':
+			if (len(sOpt) > 1) and (sOpt[0] == '-'):
 				opt = sOpt[1:]
 				if opt in diclib.dic_list:
 					dic = opt
 				elif opt=='eg': 
 					bWithExample = True
-				elif opt[0]=='w' and len(opt[1:])>0:
+				elif (opt[0]=='w') and (len(opt[1:]) > 0):
 					if all((x in string.digits) for x in opt[1:]):
 						wlim = int(opt[1:])
-			elif len(sOpt)>0:
+			elif len(sOpt) > 0:
 				word.append(sOpt)
 		
 		result = diclib.searchWord(' '.join(word), dic, bWithExample)
