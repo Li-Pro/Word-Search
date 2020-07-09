@@ -18,6 +18,9 @@ class DicResult:
 	def __init__(self):
 		self.defs = []
 		self.examples = []
+	
+	def __getattr__(self, attr):
+		raise AttributeError
 
 class Parsers:
 	"""
@@ -51,6 +54,3 @@ class DicBase:
 	def requestWord(self, key):
 		url = self.formatURL(key)
 		return requests.get(url).text
-	
-	def __getattr__(self, attr):
-		raise AttributeError
