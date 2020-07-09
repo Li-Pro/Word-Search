@@ -15,21 +15,17 @@ class DicResult:
 	defs -- list of definitions ([]=not found)
 	examples -- list of examples (None=not asked, []=not provided)
 	"""
-	def __init__(self, bWithExample):
+	def __init__(self):
 		self.defs = []
-		if bWithExample:
-			self.examples = []
-		else:
-			self.examples = None
+		self.examples = []
 
 class Parsers:
 	"""
 	The parser functions.
 	
 	A parser function:
-		- Receives (soup, bWithExample)
+		- Receives (soup)
 			soup -- A BeautifulSoup object presenting the page result
-			bWithExample -- Are examples requested
 		
 		- Returns an Result object
 	"""
@@ -46,8 +42,8 @@ class DicBase:
 	def __init__(self):
 		return
 	
-	def parse(self, page, bWithExample):
-		return DicResult(bWithExample)
+	def parse(self, page):
+		return DicResult()
 	
 	def formatURL(self, key):
 		return '{}'.format(key)

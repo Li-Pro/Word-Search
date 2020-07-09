@@ -94,7 +94,7 @@ def main():
 			elif len(sOpt) > 0:
 				word.append(sOpt)
 		
-		result = diclib.searchWord(' '.join(word), dic, bWithExample)
+		result = diclib.searchWord(' '.join(word), dic)
 		print(Format.formatted(result, bWithExample, wlim), end='')
 
 if __name__=="__main__":

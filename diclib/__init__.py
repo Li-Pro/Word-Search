@@ -25,17 +25,16 @@ def getWordPage(key, dic_obj):
 	""" Send request towards the online dictionary. """
 	return dic_obj.requestWord(key)
 
-def searchWord(key, dicname='camb', bWithExample=False):
+def searchWord(key, dicname='camb'):
 	"""
 	Provide a search utility.
 	
 	key -- the word
 	dicname -- the dictionary name (as in dic_list)
-	bWithExample -- whether example is requested
 	"""
 	if not dicname in dic_list:
 		dicname = 'camb'
 	
 	dic_obj = dic_list[dicname]
 	rep = getWordPage(key, dic_obj)
-	return dic_obj.parse(BeautifulSoup(rep, 'lxml'), bWithExample)
+	return dic_obj.parse(BeautifulSoup(rep, 'lxml'))

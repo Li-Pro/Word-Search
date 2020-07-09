@@ -3,9 +3,9 @@ import string
 
 from ..dicTypes import DicResult, DicBase
 
-def CambridgeParser(soup, bWithExample):
+def CambridgeParser(soup):
 	""" The parser of Cambridge Dictionary. """
-	rep = DicResult(bWithExample)
+	rep = DicResult()
 	
 	for ppdef in soup.find_all('div', class_='entry-body__el'):
 		entry_info = ' '.join([tg.get_text() for tg in ppdef.find_all(class_=['posgram', 'anc-info-head'])])
@@ -18,12 +18,11 @@ def CambridgeParser(soup, bWithExample):
 				
 				rep.defs.append(defx)
 				
-				if bWithExample:
-					exmps = []
-					for exmp in defs[i].find_all('div', class_='examp'):
-						exmps.append(exmp.get_text())
-					
-					rep.examples.append(exmps)
+				exmps = []
+				for exmp in defs[i].find_all('div', class_='examp'):
+					exmps.append(exmp.get_text())
+				
+				rep.examples.append(exmps)
 		
 	return rep
 
@@ -34,8 +33,8 @@ def URLFromKey(key):
 	return 'https://dictionary.cambridge.org/dictionary/english/{}'.format(key)
 
 class Dictionary(DicBase):
-	def parse(self, page, bWithExample):
-		return CambridgeParser(page, bWithExample)
+	def parse(self, page):
+		return CambridgeParser(page)
 	
 	def formatURL(self, key):
 		return URLFromKey(key)
