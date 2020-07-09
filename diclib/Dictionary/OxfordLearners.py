@@ -2,37 +2,66 @@
 
 from ..dicTypes import DicResult, DicBase
 
+def getText(soup, *args, **kwargs):
+	if args or kwargs:
+		soup = soup.find(*args, **kwargs)
+	
+	if not soup:
+		return ''
+	else:
+		return soup.get_text()
+
+def getAllText(soup, *args, **kwargs):
+	return [*map(getText, soup.find_all(*args, **kwargs))]
+
+def parseIntro(soup):
+	soup = soup.find('div', id='entryContent').find(class_='webtop')
+	d_word, d_pos = getText(soup, class_='headword'), getText(soup, class_='pos')
+	
+	# phon = soup.find(class_='phonetics')
+	
+	d_variant = getAllText(soup, class_='variants')
+	d_infl = getText(soup, class_='inflections')
+	
+	return [d_word, {'pos': d_pos}, {'variants': d_variant}, {'inflections': d_infl}]
+
+def parseDefs(soup):
+	soup = soup.find('div', id='entryContent').find(class_='senses_multiple')
+	
+	rep = []
+	entry = soup.find_all(class_='sense')
+	for it in entry:
+		rep.append(getText(it, class_='def'))
+	
+	return rep
+
+def parseExample(soup):
+	soup = soup.find('div', id='entryContent').find(class_='senses_multiple')
+	
+	rep = []
+	entry = soup.find_all(class_='sense')
+	for it in entry:
+		eg = it.find(class_='examples')
+		rep.append(getAllText(eg, class_='x'))
+	
+	return rep
+
+def parseFooter(soup):
+	soup = soup.find('div', id='entryContent')
+	d_xrefs = getText(soup, class_='xrefs')
+	
+	origin = soup.find(unbox='wordorigin')
+	d_origin = getText(origin, class_='body')
+	
+	return [d_xrefs, {'origin': d_origin}]
+
 def OEDParser(soup, bWithExample):
 	""" The parser of Oxford Learner's Dictionary. """
 	rep = DicResult(bWithExample)
 	
-	# Top part
-	if soup.find('div', class_='top-g')!=None:
-		for txt in soup.find('div', class_='top-g').find_all('span', class_='xr-gs'):
-			rep.defs.append([txt.get_text()])
-			
-			if bWithExample:
-				rep.examples.append([])
-	
-	# Middle part
-	defs = soup.find_all(class_=['sn-g'])
-	for i in range(len(defs)):
-		defx = []
-		for txt in defs[i].find_all('span', class_=['prefix', 'def', 'label-g', 'ndv', 'xr-gs', 'suffix'], recursive=False):
-			if len(txt.get_text()):
-				defx.append(txt.get_text())
-		
-		if not len(defx):
-			continue
-		
-		rep.defs.append(defx)
-		
-		if bWithExample:
-			examples = []
-			for exm in defs[i].find_all('span', class_='x'):
-				examples.append(exm.get_text())
-			
-			rep.examples.append(examples)
+	rep.defs = parseDefs(soup)
+	if bWithExample:
+		rep.examples = parseExample(soup)
 	
 	return rep
 
