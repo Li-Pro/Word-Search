@@ -2,12 +2,16 @@
 
 from ..dicTypes import DicResult, DicBase
 
-def URBParser(soup):
+def URBParser(soup, key):
 	""" The parser of Urban's Dictionary. """
 	rep = DicResult()
 	
 	defs = soup.find_all('div', 'def-panel')
 	for i in range(len(defs)):
+		word = defs[i].find(class_='word').get_text()
+		if not word.lower() == key:
+			continue
+		
 		txt = defs[i].find('div', class_='meaning')
 		
 		for dlm in txt.find_all('br'):
@@ -24,8 +28,8 @@ def URBParser(soup):
 	return rep
 
 class Dictionary(DicBase):
-	def parse(self, page):
-		return URBParser(page)
+	def parse(self, page, key):
+		return URBParser(page, key)
 	
 	def formatURL(self, key):
 		return 'https://www.urbandictionary.com/define.php?term={}'.format(key)

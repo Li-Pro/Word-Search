@@ -37,4 +37,4 @@ def searchWord(key, dicname='camb'):
 	
 	dic_obj = dic_list[dicname]
 	rep = getWordPage(key, dic_obj)
-	return dic_obj.parse(BeautifulSoup(rep, 'lxml'))
+	return dic_obj.parse(BeautifulSoup(rep, 'lxml'), key)

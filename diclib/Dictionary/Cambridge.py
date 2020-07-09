@@ -33,7 +33,7 @@ def URLFromKey(key):
 	return 'https://dictionary.cambridge.org/dictionary/english/{}'.format(key)
 
 class Dictionary(DicBase):
-	def parse(self, page):
+	def parse(self, page, key):
 		return CambridgeParser(page)
 	
 	def formatURL(self, key):

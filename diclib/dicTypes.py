@@ -45,7 +45,7 @@ class DicBase:
 	def __init__(self):
 		return
 	
-	def parse(self, page):
+	def parse(self, page, key):
 		return DicResult()
 	
 	def formatURL(self, key):

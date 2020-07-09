@@ -65,7 +65,7 @@ def OEDParser(soup):
 	return rep
 
 class Dictionary(DicBase):
-	def parse(self, page):
+	def parse(self, page, key):
 		return OEDParser(page)
 	
 	def formatURL(self, key):
