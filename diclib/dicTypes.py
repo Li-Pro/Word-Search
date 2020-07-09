@@ -6,7 +6,6 @@ The dictionary types.
 
 import requests
 
-
 class DicResult:
 	"""
 	The query result.
@@ -51,7 +50,7 @@ class DicBase:
 		return DicResult(bWithExample)
 	
 	def formatURL(self, key):
-		return '%s'
+		return '{}'.format(key)
 	
 	def requestWord(self, key):
 		url = self.formatURL(key)

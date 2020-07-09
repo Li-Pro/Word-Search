@@ -7,22 +7,12 @@ An example interactive program that searches for words.
 """
 
 import sys
-import string
 
-# The main library
-import diclib
+import diclib  # The main library
+from diclib import dicProduce  # For presentation
+
 
 class Format:
-	VIEWABLES = string.digits + string.ascii_letters + string.punctuation + ' \n'
-	
-	def strViewable(s):
-		""" Format to readable. Prevent '\\r'. """
-		S = ''
-		for x in s:
-			S += x if (x in Format.VIEWABLES) else ' '
-		
-		return S
-	
 	def setLineWidth(s, wlim):
 		""" To be easier to read. """
 		S = ''
@@ -51,17 +41,17 @@ class Format:
 		rep = ''
 		for i in range(len(result.defs)):
 			rep += str(i+1)+'. \n---\n'
-			for defx in result.defs[i]:
-				rep += defx + '\n'
+			rep += dicProduce.produce(result.defs[i])
 			
 			if bWithExample:
 				rep += '\nExamples: \n'
-				for egx in result.examples[i]:
-					rep += egx + '\n'
+				rep += dicProduce.produce(result.examples[i])
 			
 			rep += '\n'
 		
-		return Format.setLineWidth(Format.strViewable(rep), wlim)
+		rep = dicProduce.filterViewable(rep)
+		rep = Format.setLineWidth(rep, wlim)
+		return rep
 
 def main():
 	""" A search program example. """
