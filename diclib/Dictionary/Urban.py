@@ -9,7 +9,7 @@ def URBParser(soup, key):
 	defs = soup.find_all('div', 'def-panel')
 	for i in range(len(defs)):
 		word = defs[i].find(class_='word').get_text()
-		if not word.lower() == key:
+		if not word.lower() == key.lower():
 			continue
 		
 		txt = defs[i].find('div', class_='meaning')

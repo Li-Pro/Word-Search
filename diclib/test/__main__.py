@@ -2,14 +2,17 @@ import random
 
 from diclib import *
 
-testWord = ['hello']
-testDict = ['camb', 'urb'] # 'oed'
+
+## Test 1
+testWordEg = ['hello', 'book', 'desk']
+testWord = ['Earth', 'good day']
+testDict = ['oed', 'camb', 'urb']
 
 def getDefs(word, dic):
 	return searchWord(word, dic).defs
 
 def getExamples(word, dic):
-	return searchWord(word, dic, bWithExample=True).examples
+	return searchWord(word, dic).examples
 
 def getOneDef(word, dic):
 	return random.choice(getDefs(word, dic))
@@ -32,20 +35,34 @@ print('DicLib Test')
 print('-----------')
 
 print('Running test #1')
+for word in testWordEg:
+	for dic in testDict:
+		defs, examples = getDefs(word, dic), getExamples(word, dic)
+		assert( len(defs) > 0 )
+		
+		assert( (examples != None) and (len(examples) == len(defs)))
+		assert( any((len(eg) > 0) for eg in examples) )
+		
+		print('  Subtest ("{}" in {} with example) passed.'.format(word, dic))
+
 for word in testWord:
 	for dic in testDict:
 		defs, examples = getDefs(word, dic), getExamples(word, dic)
 		assert( len(defs) > 0 )
-		assert( (examples != None) and (len(examples) == len(defs)) )
+		assert( (examples != None) and (len(examples) == len(defs)))
+		
+		print('  Subtest ("{}" in {}) passed.'.format(word, dic))
 
 print('Test #1 passed.')
 print()
+
+## Test 2
+testSingleWord = ['kitty', 'music', 'creature']
 
 print('Running test #2')
 print('apple:', getOneDef('apple', 'camb') )
 print()
 
-testSingleWord = ['kitty', 'music', 'creature']
 for word in testSingleWord:
 	checkSingle(word)
 

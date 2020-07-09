@@ -3,19 +3,31 @@
 from ..dicTypes import DicResult, DicBase
 
 def getText(soup, *args, **kwargs):
-	if args or kwargs:
-		soup = soup.find(*args, **kwargs)
-	
 	if not soup:
 		return ''
+	elif args or kwargs:
+		rep = soup.find(*args, **kwargs)
 	else:
-		return soup.get_text()
+		rep = soup
+	
+	return rep.get_text()
 
 def getAllText(soup, *args, **kwargs):
-	return [*map(getText, soup.find_all(*args, **kwargs))]
+	if not soup:
+		return []
+	elif args or kwargs:
+		rep = soup.find_all(*args, **kwargs)
+	else:
+		rep = soup
+	
+	return [*map(getText, rep)]
 
 def parseIntro(soup):
-	soup = soup.find('div', id='entryContent').find(class_='webtop')
+	soup = soup.find('div', id='entryContent')
+	if not soup:
+		return []
+	
+	soup = soup.find(class_='webtop')
 	d_word, d_pos = getText(soup, class_='headword'), getText(soup, class_='pos')
 	
 	# phon = soup.find(class_='phonetics')
@@ -26,7 +38,9 @@ def parseIntro(soup):
 	return [d_word, {'pos': d_pos}, {'variants': d_variant}, {'inflections': d_infl}]
 
 def parseDefs(soup):
-	soup = soup.find('div', id='entryContent').find(class_='senses_multiple')
+	soup = soup.find('div', id='entryContent')
+	if not soup:
+		return []
 	
 	rep = []
 	entry = soup.find_all(class_='sense')
@@ -36,7 +50,9 @@ def parseDefs(soup):
 	return rep
 
 def parseExample(soup):
-	soup = soup.find('div', id='entryContent').find(class_='senses_multiple')
+	soup = soup.find('div', id='entryContent')
+	if not soup:
+		return []
 	
 	rep = []
 	entry = soup.find_all(class_='sense')
@@ -48,6 +64,9 @@ def parseExample(soup):
 
 def parseFooter(soup):
 	soup = soup.find('div', id='entryContent')
+	if not soup:
+		return []
+	
 	d_xrefs = getText(soup, class_='xrefs')
 	
 	origin = soup.find(unbox='wordorigin')
@@ -69,6 +88,6 @@ class Dictionary(DicBase):
 		return OEDParser(page)
 	
 	def formatURL(self, key):
-		return 'https://www.oxfordlearnersdictionaries.com/definition/english/{}'.format(key)
+		return 'https://www.oxfordlearnersdictionaries.com/definition/english/{}'.format('-'.join(key.lower().split()))
 
 DIC_OBJ = Dictionary()
