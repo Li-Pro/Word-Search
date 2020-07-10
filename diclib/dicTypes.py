@@ -15,12 +15,13 @@ class DicResult:
 	defs -- list of definitions ([]=not found)
 	examples -- list of examples (None=not asked, []=not provided)
 	"""
-	def __init__(self):
+	def __init__(self, word):
 		self.defs = []
 		self.examples = []
+		self.word = word
 	
 	def __getattr__(self, attr):
-		raise AttributeError
+		return None
 
 class Parsers:
 	"""
@@ -46,7 +47,7 @@ class DicBase:
 		return
 	
 	def parse(self, page, key):
-		return DicResult()
+		return DicResult(key)
 	
 	def formatURL(self, key):
 		return '{}'.format(key)

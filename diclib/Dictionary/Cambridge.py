@@ -3,9 +3,9 @@ import string
 
 from ..dicTypes import DicResult, DicBase
 
-def CambridgeParser(soup):
+def CambridgeParser(soup, key):
 	""" The parser of Cambridge Dictionary. """
-	rep = DicResult()
+	rep = DicResult(key)
 	
 	for ppdef in soup.find_all('div', class_='entry-body__el'):
 		entry_info = ' '.join([tg.get_text() for tg in ppdef.find_all(class_=['posgram', 'anc-info-head'])])
@@ -34,7 +34,7 @@ def URLFromKey(key):
 
 class Dictionary(DicBase):
 	def parse(self, page, key):
-		return CambridgeParser(page)
+		return CambridgeParser(page, key)
 	
 	def formatURL(self, key):
 		return URLFromKey(key)

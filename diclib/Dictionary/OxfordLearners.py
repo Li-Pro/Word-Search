@@ -74,9 +74,9 @@ def parseFooter(soup):
 	
 	return [d_xrefs, {'origin': d_origin}]
 
-def OEDParser(soup):
+def OEDParser(soup, key):
 	""" The parser of Oxford Learner's Dictionary. """
-	rep = DicResult()
+	rep = DicResult(key)
 	
 	rep.defs = parseDefs(soup)
 	rep.examples = parseExample(soup)
@@ -85,7 +85,7 @@ def OEDParser(soup):
 
 class Dictionary(DicBase):
 	def parse(self, page, key):
-		return OEDParser(page)
+		return OEDParser(page, key)
 	
 	def formatURL(self, key):
 		return 'https://www.oxfordlearnersdictionaries.com/definition/english/{}'.format('-'.join(key.lower().split()))

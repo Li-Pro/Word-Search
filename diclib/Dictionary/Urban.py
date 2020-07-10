@@ -4,7 +4,7 @@ from ..dicTypes import DicResult, DicBase
 
 def URBParser(soup, key):
 	""" The parser of Urban's Dictionary. """
-	rep = DicResult()
+	rep = DicResult(key)
 	
 	defs = soup.find_all('div', 'def-panel')
 	for i in range(len(defs)):
