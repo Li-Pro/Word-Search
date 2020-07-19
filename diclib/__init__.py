@@ -14,7 +14,10 @@ from .Dictionary import OxfordLearners
 from .Dictionary import Urban
 from .Dictionary import Cambridge
 
-__all__ = ['OxfordLearners', 'Urban', 'Cambridge', 'searchWord', 'getWordPage']
+import dicProduce
+import dicTypes
+
+__all__ = ['OxfordLearners', 'Urban', 'Cambridge', 'searchWord', 'getWordPage', 'dicProduce', 'dicTypes']
 
 # The extensible dictionary list!
 dic_list = {'oed': OxfordLearners.DIC_OBJ,
