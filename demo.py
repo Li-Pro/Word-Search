@@ -86,16 +86,23 @@ def main():
 				opt = sOpt[1:]
 				if opt in diclib.dic_list:
 					dic = opt
+				
 				elif opt=='eg': 
 					bWithExample = True
+				
 				elif (opt[0]=='w') and (len(opt[1:]) > 0):
 					if all((x in string.digits) for x in opt[1:]):
 						wlim = int(opt[1:])
+			
 			elif len(sOpt) > 0:
 				word.append(sOpt)
 		
-		result = diclib.searchWord(' '.join(word), dic)
-		print(Format.formatted(result, bWithExample, wlim), end='')
+		try:
+			result = diclib.searchWord(' '.join(word), dic)
+		except Exception as e:
+			print('Error: {}'.format(e))
+		else:
+			print(Format.formatted(result, bWithExample, wlim), end='')
 
 if __name__=="__main__":
-	main() # Run the example
+	main()  # Run the example

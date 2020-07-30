@@ -16,9 +16,10 @@ class DicResult:
 	examples -- list of examples (None=not asked, []=not provided)
 	"""
 	def __init__(self, word):
+		self.word = word
+		
 		self.defs = []
 		self.examples = []
-		self.word = word
 	
 	def __getattr__(self, attr):
 		return None
