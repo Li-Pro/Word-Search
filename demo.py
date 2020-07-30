@@ -80,7 +80,7 @@ def main():
 			continue
 		
 		seq = line.split(' ')
-		word, dic, bWithExample, wlim = [], 'camb', False, 90  # word & options
+		word, dic, bWithExample, wlim = [], 'oed', False, 90  # word & options
 		for sOpt in seq:
 			if (len(sOpt) > 1) and (sOpt[0] == '-'):
 				opt = sOpt[1:]
@@ -100,7 +100,7 @@ def main():
 		try:
 			result = diclib.searchWord(' '.join(word), dic)
 		except Exception as e:
-			print('Error: {}'.format(e))
+			print('Error: {}\n'.format(e))
 		else:
 			print(Format.formatted(result, bWithExample, wlim), end='')
 
