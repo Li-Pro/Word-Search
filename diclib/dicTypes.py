@@ -54,5 +54,7 @@ class DicBase:
 		return '{}'.format(key)
 	
 	def requestWord(self, key):
+		# to fake real request
+		headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.0; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0' }
 		url = self.formatURL(key)
-		return requests.get(url).text
+		return requests.get(url, headers=headers).text
